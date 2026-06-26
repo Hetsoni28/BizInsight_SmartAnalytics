@@ -1,0 +1,6 @@
+.refact/
+uploads/
+exports/
+{assets/
+*.log
+.DS_Store
