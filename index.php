@@ -45,28 +45,28 @@ $server_uptime = '99.99% Uptime';
 // BENTO GRID FEATURES
 $features = [
     [
-        "icon" => "📊", 
+        "icon" => "<i class='bx bx-bar-chart-alt-2'></i>", 
         "title" => "Live Analytics Dashboard", 
         "desc" => "Real-time KPI cards, revenue charts, and interactive sales analytics updated instantly via database triggers.", 
         "img" => "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80",
         "span" => "large"
     ],
     [
-        "icon" => "📁", 
+        "icon" => "<i class='bx bx-folder'></i>", 
         "title" => "Automated Ingestion", 
         "desc" => "Upload CSV/Excel files. Our PHP parser cleans and stores raw data securely.", 
         "img" => null,
         "span" => "small"
     ],
     [
-        "icon" => "📑", 
+        "icon" => "<i class='bx bxs-report'></i>", 
         "title" => "Enterprise Reporting", 
         "desc" => "Export complex RDBMS queries as formatted PDF or Excel sheets with one click.", 
         "img" => null,
         "span" => "small"
     ],
     [
-        "icon" => "🤖", 
+        "icon" => "<i class='bx bx-bot'></i>", 
         "title" => "AI Predictive Insights", 
         "desc" => "Automated suggestions on revenue trends, churn prediction, and top products powered by custom algorithmic logic.", 
         "img" => "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80",
@@ -117,6 +117,7 @@ $live_chart_data = json_encode([12500, 19200, 15400, 28000, 22000, 35000, 41000,
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BizInsight — Business Analytics Dashboard</title>
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <meta name="description" content="Turn raw CSV and POS data into actionable business intelligence with BizInsight.">
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -649,7 +650,7 @@ $live_chart_data = json_encode([12500, 19200, 15400, 28000, 22000, 35000, 41000,
                     <div class="mac-body">
                         <div class="mockup-kpi-grid">
                             <div class="m-card"><span>Gross Revenue YTD</span><strong>₹8,42,500</strong></div>
-                            <div class="m-card"><span>Net Profit Margin</span><strong style="color: var(--success);">25.0% 📈</strong></div>
+                            <div class="m-card"><span>Net Profit Margin</span><strong style="color: var(--success);">25.0% <i class='bx bx-line-chart'></i></strong></div>
                         </div>
                         <div style="height: 240px; width: 100%; position: relative;">
                             <canvas id="heroChart"></canvas>
@@ -764,9 +765,9 @@ $live_chart_data = json_encode([12500, 19200, 15400, 28000, 22000, 35000, 41000,
                 <p>Businesses using BizInsight typically recover 15 hours a week previously wasted on manual entry, and increase their net profit margins by automatically identifying underperforming assets.</p>
                 
                 <div class="roi-features">
-                    <div class="r-feat"><div class="r-check">✓</div> Eliminate manual data entry human errors</div>
-                    <div class="r-feat"><div class="r-check">✓</div> Real-time indexing for instant queries</div>
-                    <div class="r-feat"><div class="r-check">✓</div> Generate executive PDF reports automatically</div>
+                    <div class="r-feat"><div class="r-check"><i class='bx bx-check'></i></div> Eliminate manual data entry human errors</div>
+                    <div class="r-feat"><div class="r-check"><i class='bx bx-check'></i></div> Real-time indexing for instant queries</div>
+                    <div class="r-feat"><div class="r-check"><i class='bx bx-check'></i></div> Generate executive PDF reports automatically</div>
                 </div>
             </div>
             
@@ -869,7 +870,7 @@ $live_chart_data = json_encode([12500, 19200, 15400, 28000, 22000, 35000, 41000,
                 <?php foreach($testimonials as $index => $test): ?>
                 <div class="test-card reveal" style="transition-delay: <?= $index * 0.15 ?>s;">
                     <div>
-                        <div class="stars">★★★★★</div>
+                        <div class="stars"><i class='bx bxs-star'></i><i class='bx bxs-star'></i><i class='bx bxs-star'></i><i class='bx bxs-star'></i><i class='bx bxs-star'></i></div>
                         <p class="test-quote">"<?= $test['text'] ?>"</p>
                     </div>
                     <div class="test-profile">

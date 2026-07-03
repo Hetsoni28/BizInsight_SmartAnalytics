@@ -1,11 +1,19 @@
 // ============================================================
 //  BizInsight — PDF Generation Module (pdf-gen.js)
-//  Shared PDF generator for all pages: reports, dashboard,
-//  analytics, sales
+//  Premium "World-Class" PDF generator for reports & analytics
 // ============================================================
 
 /**
- * Core PDF builder with branded header/footer
+ * Helper to determine if a string looks like a number/currency
+ */
+function isNumericString(str) {
+    // Remove common currency symbols and commas, then check if it's a number
+    const cleanStr = str.replace(/[^0-9.-]+/g, "");
+    return !isNaN(parseFloat(cleanStr)) && isFinite(cleanStr) && cleanStr !== "";
+}
+
+/**
+ * Core PDF builder with modern branded header
  * Returns { doc, y } so callers can add content
  */
 function createPDFDoc(title, subtitle) {
@@ -16,160 +24,267 @@ function createPDFDoc(title, subtitle) {
 
     const { jsPDF } = window.jspdf;
     const doc = new jsPDF('p', 'mm', 'a4');
+    const margin = 18;
     const pageW = doc.internal.pageSize.getWidth();
-    const margin = 16;
 
-    // Colors
-    const blue  = [26, 127, 212];
-    const white = [255, 255, 255];
-
-    // Header bar
-    doc.setFillColor(...blue);
-    doc.rect(0, 0, pageW, 38, 'F');
+    // Brand Colors
+    const primaryDark = [15, 23, 42];  // Slate 900
+    const primaryBlue = [37, 99, 235]; // Blue 600
+    const textMuted   = [100, 116, 139]; // Slate 500
+    
+    // Header Layout
     doc.setFont('helvetica', 'bold');
-    doc.setFontSize(20);
-    doc.setTextColor(...white);
-    doc.text('BizInsight SmartAnalytics', margin, 16);
-    doc.setFontSize(12);
-    doc.setFont('helvetica', 'normal');
-    doc.setTextColor(...white);
-    doc.text(title || 'Business Report', margin, 26);
-    doc.setFontSize(9);
-    doc.setTextColor(200, 223, 245);
-    doc.text('Generated: ' + new Date().toLocaleDateString('en-IN', {
-        day: '2-digit', month: 'short', year: 'numeric',
-        hour: '2-digit', minute: '2-digit'
-    }), margin, 33);
+    doc.setFontSize(22);
+    doc.setTextColor(...primaryDark);
+    doc.text('BizInsight SmartAnalytics', margin, 24);
 
-    return { doc: doc, y: 48 };
+    doc.setFontSize(14);
+    doc.setFont('helvetica', 'normal');
+    doc.setTextColor(...primaryBlue);
+    doc.text(title || 'Executive Business Report', margin, 32);
+
+    doc.setFontSize(9);
+    doc.setTextColor(...textMuted);
+    const dateStr = new Date().toLocaleDateString('en-US', {
+        weekday: 'long', year: 'numeric', month: 'long', day: 'numeric',
+        hour: '2-digit', minute: '2-digit'
+    });
+    doc.text('Generated on: ' + dateStr, margin, 38);
+
+    // Sleek Accent Line
+    doc.setDrawColor(226, 232, 240); // Slate 200
+    doc.setLineWidth(0.5);
+    doc.line(margin, 44, pageW - margin, 44);
+
+    return { doc: doc, y: 54 };
 }
 
 /**
- * Add branded footer to all pages
+ * Add elegant footer to all pages
  */
 function addPDFFooter(doc) {
     const pageW = doc.internal.pageSize.getWidth();
-    const margin = 16;
-    const blue = [26, 127, 212];
-    const textMuted = [90, 122, 153];
+    const margin = 18;
+    const textMuted = [148, 163, 184]; // Slate 400
     const totalPages = doc.internal.getNumberOfPages();
 
     for (let p = 1; p <= totalPages; p++) {
         doc.setPage(p);
         const pgH = doc.internal.pageSize.getHeight();
-        doc.setDrawColor(...blue);
+        
+        // Footer line
+        doc.setDrawColor(241, 245, 249); // Slate 100
         doc.setLineWidth(0.5);
-        doc.line(margin, pgH - 14, pageW - margin, pgH - 14);
+        doc.line(margin, pgH - 16, pageW - margin, pgH - 16);
+
+        // Footer Text
         doc.setFontSize(8);
         doc.setFont('helvetica', 'normal');
         doc.setTextColor(...textMuted);
-        doc.text('BizInsight SmartAnalytics  |  Confidential', margin, pgH - 8);
-        doc.text('Page ' + p + ' of ' + totalPages, pageW - margin, pgH - 8, { align: 'right' });
+        doc.text('BizInsight SmartAnalytics — Confidential Internal Document', margin, pgH - 10);
+        doc.text(`Page ${p} of ${totalPages}`, pageW - margin, pgH - 10, { align: 'right' });
     }
 }
 
 /**
- * Add KPI summary cards to PDF
- * @param {Object} doc - jsPDF document
- * @param {number} y - current Y position
- * @param {Array} kpiData - [{label, value}, ...]
- * @returns {number} new Y position
+ * Add modern, minimalist KPI summary cards
  */
 function addKPICards(doc, y, kpiData) {
     const pageW = doc.internal.pageSize.getWidth();
-    const margin = 16;
-    const blue = [26, 127, 212];
-    const textDark = [26, 45, 66];
-    const textMuted = [90, 122, 153];
-    const bgLight = [240, 247, 255];
+    const margin = 18;
+    const textDark  = [15, 23, 42];
+    const textMuted = [100, 116, 139];
+    const borderCol = [226, 232, 240];
 
-    doc.setFontSize(13);
+    // Section Title
+    doc.setFontSize(11);
     doc.setFont('helvetica', 'bold');
     doc.setTextColor(...textDark);
-    doc.text('Summary', margin, y);
-    y += 6;
+    doc.text('EXECUTIVE SUMMARY', margin, y);
+    y += 8;
 
     const count = Math.min(kpiData.length, 4);
-    const kpiW = (pageW - margin * 2 - (count - 1) * 4) / count;
+    const gap = 6;
+    const kpiW = (pageW - (margin * 2) - (gap * (count - 1))) / count;
 
     kpiData.slice(0, 4).forEach(function (kpi, i) {
-        const x = margin + i * (kpiW + 4);
-        doc.setFillColor(...bgLight);
-        doc.roundedRect(x, y, kpiW, 24, 3, 3, 'F');
-        doc.setDrawColor(...blue);
-        doc.setLineWidth(0.3);
-        doc.roundedRect(x, y, kpiW, 24, 3, 3, 'S');
-        // Label
-        doc.setFontSize(8);
-        doc.setFont('helvetica', 'normal');
+        const x = margin + (i * (kpiW + gap));
+        
+        // Very subtle border, no fill (clean look)
+        doc.setDrawColor(...borderCol);
+        doc.setLineWidth(0.2);
+        doc.roundedRect(x, y, kpiW, 26, 2, 2, 'S');
+        
+        // Label (Muted, uppercase, tracked)
+        doc.setFontSize(7);
+        doc.setFont('helvetica', 'bold');
         doc.setTextColor(...textMuted);
-        doc.text(kpi.label.toUpperCase(), x + kpiW / 2, y + 9, { align: 'center' });
-        // Value
+        doc.text(kpi.label.toUpperCase(), x + 6, y + 9);
+        
+        // Value (Large, dark)
         doc.setFontSize(14);
         doc.setFont('helvetica', 'bold');
         doc.setTextColor(...textDark);
-        doc.text(String(kpi.value), x + kpiW / 2, y + 19, { align: 'center' });
+        // Clean up unsupported unicode (Rupee symbol = \u20B9)
+        let kpiVal = String(kpi.value).replace(/\u20B9/g, 'Rs. ');
+        // Truncate value if too long, or scale it
+        doc.text(kpiVal, x + 6, y + 20);
     });
 
-    return y + 34;
+    return y + 36;
 }
 
 /**
- * Add a data table to the PDF
- * @param {Object} doc - jsPDF document
- * @param {number} y - current Y position
- * @param {string} title - table section title
- * @param {Array} head - header columns
- * @param {Array} body - data rows
- * @returns {number} new Y position
+ * Capture and embed charts as images
  */
-function addPDFTable(doc, y, title, head, body) {
-    const margin = 16;
-    const blue = [26, 127, 212];
-    const textDark = [26, 45, 66];
-    const bgLight = [240, 247, 255];
-    const white = [255, 255, 255];
+function embedCharts(doc, y) {
+    const canvases = document.querySelectorAll('canvas');
+    if (canvases.length === 0) return y;
 
-    // Page break check
-    if (y > 220) {
+    const pageW = doc.internal.pageSize.getWidth();
+    const margin = 18;
+    const usableW = pageW - (margin * 2);
+
+    doc.setFontSize(11);
+    doc.setFont('helvetica', 'bold');
+    doc.setTextColor(15, 23, 42);
+    
+    // Page break check for charts
+    if (y > 200) {
         doc.addPage();
         y = 20;
     }
 
-    doc.setFontSize(13);
+    doc.text('VISUAL ANALYTICS', margin, y);
+    y += 8;
+
+    // Handle up to 2 charts side-by-side or stack them nicely
+    const chartW = canvases.length > 1 ? (usableW - 6) / 2 : usableW;
+    let currentX = margin;
+    let maxHeight = 0;
+
+    canvases.forEach((canvas, index) => {
+        // Calculate proportional height
+        const ratio = canvas.height / canvas.width;
+        const chartH = chartW * ratio;
+
+        // If it doesn't fit horizontally, move to next row
+        if (index > 0 && currentX + chartW > pageW - margin) {
+            y += maxHeight + 10;
+            currentX = margin;
+            maxHeight = 0;
+            // Page break check
+            if (y + chartH > 270) {
+                doc.addPage();
+                y = 20;
+            }
+        }
+
+        // Add white background before capturing (useful for transparent charts)
+        const tempCanvas = document.createElement('canvas');
+        tempCanvas.width = canvas.width;
+        tempCanvas.height = canvas.height;
+        const ctx = tempCanvas.getContext('2d');
+        ctx.fillStyle = '#ffffff';
+        ctx.fillRect(0, 0, tempCanvas.width, tempCanvas.height);
+        ctx.drawImage(canvas, 0, 0);
+
+        try {
+            const imgData = tempCanvas.toDataURL('image/png', 1.0);
+            
+            // Draw subtle border around chart for crispness
+            doc.setDrawColor(226, 232, 240);
+            doc.setLineWidth(0.2);
+            doc.rect(currentX, y, chartW, chartH, 'S');
+
+            doc.addImage(imgData, 'PNG', currentX, y, chartW, chartH, undefined, 'FAST');
+            
+            currentX += chartW + 6;
+            if (chartH > maxHeight) maxHeight = chartH;
+        } catch (e) {
+            console.warn("Could not export chart to PDF", e);
+        }
+    });
+
+    return y + maxHeight + 14;
+}
+
+/**
+ * Add a premium data table to the PDF
+ */
+function addPDFTable(doc, y, title, head, body) {
+    const margin = 18;
+    const textDark  = [15, 23, 42];
+    const borderCol = [226, 232, 240];
+    
+    // Check if we need to clean up emoji from title
+    let cleanTitle = title.trim();
+    if(cleanTitle === 'Data Table') cleanTitle = 'DETAILED DATA REPORT';
+
+    // Page break check
+    if (y > 240) {
+        doc.addPage();
+        y = 20;
+    }
+
+    doc.setFontSize(11);
     doc.setFont('helvetica', 'bold');
     doc.setTextColor(...textDark);
-    doc.text(title, margin, y);
-    y += 3;
+    doc.text(cleanTitle.toUpperCase(), margin, y);
+    y += 4;
 
     doc.autoTable({
         startY: y,
         margin: { left: margin, right: margin },
         head: [head],
         body: body,
-        theme: 'grid',
+        theme: 'plain', // Use plain theme to build custom minimal borders
         headStyles: {
-            fillColor: blue,
-            textColor: white,
-            fontSize: 9,
+            fillColor: [248, 250, 252], // Slate 50
+            textColor: [71, 85, 105],   // Slate 600
+            fontSize: 8,
             fontStyle: 'bold',
-            halign: 'left'
+            halign: 'left',
+            cellPadding: { top: 6, bottom: 6, left: 4, right: 4 },
+            lineWidth: { bottom: 0.5 },
+            lineColor: borderCol
         },
         bodyStyles: {
             fontSize: 9,
             textColor: textDark,
-            cellPadding: 4
+            cellPadding: { top: 5, bottom: 5, left: 4, right: 4 },
+            lineWidth: { bottom: 0.1 },
+            lineColor: [241, 245, 249]
         },
         alternateRowStyles: {
-            fillColor: bgLight
+            fillColor: [255, 255, 255]
         },
-        styles: {
-            lineColor: [197, 221, 244],
-            lineWidth: 0.3
+        didParseCell: function(data) {
+            // Right-align numbers/currencies for professional look
+            if (data.section === 'body' && data.column.index > 0) {
+                if (isNumericString(data.cell.raw)) {
+                    data.cell.styles.halign = 'right';
+                }
+            }
+            // Match header alignment with body
+            if (data.section === 'head' && data.column.index > 0) {
+                // Peek at first row to see if it's numeric
+                if (body.length > 0 && isNumericString(body[0][data.column.index])) {
+                    data.cell.styles.halign = 'right';
+                }
+            }
+            
+            // Fix Unicode Rupee symbol (\u20B9)
+            if (typeof data.cell.raw === 'string') {
+                let cleanText = data.cell.raw.trim();
+                // jsPDF standard fonts don't support the ₹ symbol, so we convert it to Rs.
+                cleanText = cleanText.replace(/\u20B9/g, 'Rs. ');
+                data.cell.text = [cleanText];
+            }
         }
     });
 
-    return doc.lastAutoTable.finalY + 12;
+    return doc.lastAutoTable.finalY + 14;
 }
 
 /**
@@ -177,7 +292,8 @@ function addPDFTable(doc, y, title, head, body) {
  */
 function savePDF(doc, title) {
     addPDFFooter(doc);
-    var fileName = (title || 'Report').replace(/[^a-zA-Z0-9 ]/g, '').replace(/\s+/g, '_') + '_' + new Date().toISOString().slice(0, 10) + '.pdf';
+    var cleanTitle = (title || 'Report');
+    var fileName = cleanTitle.replace(/[^a-zA-Z0-9 ]/g, '').replace(/\s+/g, '_') + '_' + new Date().toISOString().slice(0, 10) + '.pdf';
     doc.save(fileName);
     if (typeof showToast === 'function') {
         showToast('PDF downloaded: ' + fileName);
@@ -185,8 +301,7 @@ function savePDF(doc, title) {
 }
 
 /**
- * Generate a PDF from visible table on any page (generic)
- * Reads the first .data-table on the page and exports it
+ * Generate a PDF from visible charts and tables on any page
  */
 function generatePagePDF(title, kpiData) {
     try {
@@ -195,12 +310,15 @@ function generatePagePDF(title, kpiData) {
         var doc = result.doc;
         var y = result.y;
 
-        // Add KPIs if provided
+        // 1. Add KPIs if provided
         if (kpiData && kpiData.length) {
             y = addKPICards(doc, y, kpiData);
         }
 
-        // Find all data tables on the page
+        // 2. Embed Charts if any exist on the page
+        y = embedCharts(doc, y);
+
+        // 3. Find all data tables and embed them
         var tables = document.querySelectorAll('.data-table');
         tables.forEach(function (table, tIdx) {
             var thead = table.querySelector('thead');

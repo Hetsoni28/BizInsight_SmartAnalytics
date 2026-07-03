@@ -103,6 +103,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Secure Login — BizInsight Analytics</title>
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <meta name="description" content="Login to BizInsight to access your business analytics dashboard.">
     
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -304,22 +305,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         <div class="glass-features">
             <div class="feature-item">
-                <div class="feature-icon-box">📊</div>
+                <div class="feature-icon-box"><i class='bx bx-bar-chart-alt-2'></i></div>
                 <span>Live KPI Tracking Dashboard</span>
             </div>
             <div class="feature-item">
-                <div class="feature-icon-box">📁</div>
+                <div class="feature-icon-box"><i class='bx bx-folder'></i></div>
                 <span>Automated CSV / Excel Parsing</span>
             </div>
             <div class="feature-item">
-                <div class="feature-icon-box">🤖</div>
+                <div class="feature-icon-box"><i class='bx bx-bot'></i></div>
                 <span>AI-Powered Profit Analysis</span>
             </div>
         </div>
     </div>
 
     <div class="auth-right">
-        <a href="index.php" class="back-btn">Exit ✕</a>
+        <a href="index.php" class="back-btn">Exit <i class='bx bx-x'></i></a>
         
         <div class="form-header stagger-1">
             <h3>Sign In</h3>
@@ -328,12 +329,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         <?php if(!empty($error)): ?>
             <div class="alert alert-error stagger-1">
-                ⚠️ <span><?= htmlspecialchars($error) ?></span>
+                <i class='bx bx-error-circle'></i> <span><?= htmlspecialchars($error) ?></span>
             </div>
         <?php endif; ?>
 
         <div class="alert alert-demo stagger-1">
-            💡 <span><strong>Demo:</strong> <code>demo@bizinsight.com</code> / <code>Demo@1234</code></span>
+            <i class='bx bx-bulb'></i> <span><strong>Demo:</strong> <code>demo@bizinsight.com</code> / <code>Demo@1234</code></span>
         </div>
 
         <form method="POST" action="login.php" id="loginForm" onsubmit="handleFormSubmit(event)">
@@ -344,8 +345,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <label for="email">Email Address</label>
                 <div class="input-wrapper">
                     <input type="email" id="email" name="email" class="input-field" placeholder="name@business.com" value="<?= $submitted_email ?>" required autocomplete="email">
-                    <span class="input-icon">✉️</span>
-                    <span class="live-validation-icon" id="emailCheck">✅</span>
+                    <span class="input-icon"><i class='bx bx-envelope'></i></span>
+                    <span class="live-validation-icon" id="emailCheck"><i class='bx bx-check-circle'></i></span>
                 </div>
             </div>
             
@@ -353,10 +354,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <label for="password">Password</label>
                 <div class="input-wrapper">
                     <input type="password" id="password" name="password" class="input-field" placeholder="••••••••" value="Demo@1234" required autocomplete="current-password">
-                    <span class="input-icon">🔒</span>
-                    <span class="toggle-pwd" onclick="togglePassword()" title="Show Password">👁️</span>
+                    <span class="input-icon"><i class='bx bx-lock-alt'></i></span>
+                    <span class="toggle-pwd" onclick="togglePassword()" title="Show Password"><i class='bx bx-show'></i></span>
                 </div>
-                <div class="caps-warning" id="capsWarning">⚠️ Caps Lock is ON</div>
+                <div class="caps-warning" id="capsWarning"><i class='bx bx-error-circle'></i> Caps Lock is ON</div>
             </div>
             
             <div class="form-actions stagger-4">
@@ -387,10 +388,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         
         if (pwdInput.type === 'password') {
             pwdInput.type = 'text';
-            pwdToggle.textContent = '🙈';
+            pwdToggle.textContent = '<i class="bx bx-hide"></i>';
         } else {
             pwdInput.type = 'password';
-            pwdToggle.textContent = '👁️';
+            pwdToggle.textContent = '<i class="bx bx-show"></i>';
         }
     }
 

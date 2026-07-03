@@ -236,17 +236,17 @@ include 'includes/header.php';
 
 <div class="page-header">
   <div>
-    <h1>📑 Business Reports</h1>
+    <h1><i class='bx bxs-report'></i> Business Reports</h1>
     <p>Generate and download professional business reports from your data.</p>
   </div>
-  <a href="reports.php?type=sales_csv" class="btn btn-primary">📥 Export Sales CSV</a>
+  <a href="reports.php?type=sales_csv" class="btn btn-primary"><i class='bx bx-download'></i> Export Sales CSV</a>
 </div>
 
 <!-- REPORT TYPE CARDS -->
 <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-bottom:28px" class="report-grid">
 
   <div class="report-card" onclick="showReport('sales')">
-    <div class="report-icon">📊</div>
+    <div class="report-icon"><i class='bx bx-bar-chart-alt-2'></i></div>
     <div class="report-title">Monthly Sales Report</div>
     <div class="report-desc">Month-by-month sales breakdown with totals and comparisons.</div>
     <div class="report-actions">
@@ -256,7 +256,7 @@ include 'includes/header.php';
   </div>
 
   <div class="report-card" onclick="showReport('revenue')">
-    <div class="report-icon">💰</div>
+    <div class="report-icon"><i class='bx bx-money'></i></div>
     <div class="report-title">Revenue Report</div>
     <div class="report-desc">Total revenue analysis with growth trends and category breakdown.</div>
     <div class="report-actions">
@@ -266,7 +266,7 @@ include 'includes/header.php';
   </div>
 
   <div class="report-card" onclick="showReport('product')">
-    <div class="report-icon">📦</div>
+    <div class="report-icon"><i class='bx bx-package'></i></div>
     <div class="report-title">Product Performance</div>
     <div class="report-desc">Top products, lowest performers, and category-wise analysis.</div>
     <div class="report-actions">
@@ -276,7 +276,7 @@ include 'includes/header.php';
   </div>
 
   <div class="report-card" onclick="showReport('profit')">
-    <div class="report-icon">📉</div>
+    <div class="report-icon"><i class='bx bx-trending-down'></i></div>
     <div class="report-title">Profit / Loss Report</div>
     <div class="report-desc">Detailed P&L analysis with margin and expense breakdown.</div>
     <div class="report-actions">
@@ -286,7 +286,7 @@ include 'includes/header.php';
   </div>
 
   <div class="report-card" onclick="showReport('growth')">
-    <div class="report-icon">📅</div>
+    <div class="report-icon"><i class='bx bx-calendar'></i></div>
     <div class="report-title">Monthly Growth Report</div>
     <div class="report-desc">Month-over-month growth analysis with trend indicators.</div>
     <div class="report-actions">
@@ -296,7 +296,7 @@ include 'includes/header.php';
   </div>
 
   <div class="report-card" onclick="showReport('category')">
-    <div class="report-icon">🗂️</div>
+    <div class="report-icon"><i class='bx bx-category'></i></div>
     <div class="report-title">Category Analytics</div>
     <div class="report-desc">Sales and profit breakdown by product category.</div>
     <div class="report-actions">
@@ -309,8 +309,8 @@ include 'includes/header.php';
 <!-- LIVE REPORT PREVIEW SECTION -->
 <div class="card" id="report-preview">
   <div class="card-header">
-    <div><div class="card-title" id="report-preview-title">📊 Sales Summary Report</div><div class="card-sub">Click any report card above to preview</div></div>
-    <button class="btn btn-outline btn-sm" onclick="generatePDF()">📄 Download PDF</button>
+    <div><div class="card-title" id="report-preview-title"><i class='bx bx-bar-chart-alt-2'></i> Sales Summary Report</div><div class="card-sub">Click any report card above to preview</div></div>
+    <button class="btn btn-outline btn-sm" onclick="generatePDF()"><i class='bx bx-file-blank'></i> Download PDF</button>
   </div>
 
   <!-- Summary Stats -->
@@ -364,7 +364,7 @@ include 'includes/header.php';
   <!-- Loss Analysis Section -->
   <?php if(!empty($loss_products)): ?>
   <div style="margin-bottom:24px">
-    <div style="font-weight:700;margin-bottom:16px;font-size:15px;color:var(--red)">⚠️ Loss / Low-Margin Analysis</div>
+    <div style="font-weight:700;margin-bottom:16px;font-size:15px;color:var(--red)"><i class='bx bx-error-circle'></i> Loss / Low-Margin Analysis</div>
     <div class="kpi-grid" style="margin-bottom:20px;grid-template-columns:repeat(3,1fr)">
       <div class="kpi-card" style="padding:16px;border-color:#fecaca;background:#fff5f5">
         <div class="kpi-label" style="color:#991b1b">Total Loss Amount</div>
@@ -394,7 +394,7 @@ include 'includes/header.php';
             <?= $is_loss ? '-' : '' ?>₹<?= number_format(abs($lp['total_profit'])) ?>
           </td>
           <td><span class="badge <?= $is_loss ? 'badge-danger' : 'badge-warning' ?>"><?= $lm ?>%</span></td>
-          <td><span class="badge <?= $is_loss ? 'badge-danger' : 'badge-warning' ?>"><?= $is_loss ? '❌ Loss' : '⚠️ Low Margin' ?></span></td>
+          <td><span class="badge <?= $is_loss ? 'badge-danger' : 'badge-warning' ?>"><?= $is_loss ? '<i class="bx bx-x-circle"></i> Loss' : '<i class="bx bx-error-circle"></i> Low Margin' ?></span></td>
         </tr>
         <?php endforeach; ?>
       </tbody>
@@ -405,7 +405,7 @@ include 'includes/header.php';
   <!-- Loss Months -->
   <?php if(!empty($loss_months)): ?>
   <div style="margin-bottom:24px">
-    <div style="font-weight:700;margin-bottom:16px;font-size:15px;color:var(--red)">📅 Loss Months</div>
+    <div style="font-weight:700;margin-bottom:16px;font-size:15px;color:var(--red)"><i class='bx bx-calendar'></i> Loss Months</div>
     <table class="data-table">
       <thead><tr><th>Month</th><th>Revenue</th><th>Profit/Loss</th><th>Status</th></tr></thead>
       <tbody>
@@ -414,7 +414,7 @@ include 'includes/header.php';
           <td><strong><?= e($lm['month']) ?></strong></td>
           <td>₹<?= number_format($lm['revenue']) ?></td>
           <td style="color:var(--red);font-weight:700">-₹<?= number_format(abs($lm['profit'])) ?></td>
-          <td><span class="badge badge-danger">❌ Loss Month</span></td>
+          <td><span class="badge badge-danger"><i class='bx bx-x-circle'></i> Loss Month</span></td>
         </tr>
         <?php endforeach; ?>
       </tbody>
@@ -425,7 +425,7 @@ include 'includes/header.php';
   <!-- Loss Categories -->
   <?php if(!empty($loss_categories)): ?>
   <div>
-    <div style="font-weight:700;margin-bottom:16px;font-size:15px;color:var(--amber)">🗂️ Underperforming Categories</div>
+    <div style="font-weight:700;margin-bottom:16px;font-size:15px;color:var(--amber)"><i class='bx bx-category'></i> Underperforming Categories</div>
     <table class="data-table">
       <thead><tr><th>Category</th><th>Sales</th><th>Profit</th><th>Margin</th><th>Status</th></tr></thead>
       <tbody>
@@ -440,7 +440,7 @@ include 'includes/header.php';
             <?= $lc_loss ? '-' : '' ?>₹<?= number_format(abs($lc['total_profit'])) ?>
           </td>
           <td><span class="badge <?= $lc_loss ? 'badge-danger' : 'badge-warning' ?>"><?= $lcm ?>%</span></td>
-          <td><span class="badge <?= $lc_loss ? 'badge-danger' : 'badge-warning' ?>"><?= $lc_loss ? '❌ Loss' : '⚠️ Low Margin' ?></span></td>
+          <td><span class="badge <?= $lc_loss ? 'badge-danger' : 'badge-warning' ?>"><?= $lc_loss ? '<i class="bx bx-x-circle"></i> Loss' : '<i class="bx bx-error-circle"></i> Low Margin' ?></span></td>
         </tr>
         <?php endforeach; ?>
       </tbody>
@@ -458,10 +458,10 @@ include 'includes/header.php';
     <tbody>
       <?php foreach($upload_list as $u): ?>
       <tr>
-        <td>📄 <strong><?= e($u['file_name']) ?></strong></td>
+        <td><i class='bx bx-file-blank'></i> <strong><?= e($u['file_name']) ?></strong></td>
         <td><?= number_format($u['records_imported']) ?> records</td>
         <td><?= date('d M Y, h:i A', strtotime($u['uploaded_at'])) ?></td>
-        <td><span class="badge badge-success">✅ Imported</span></td>
+        <td><span class="badge badge-success"><i class='bx bx-check-circle'></i> Imported</span></td>
       </tr>
       <?php endforeach; ?>
     </tbody>
@@ -479,12 +479,12 @@ const reportTitles = {
     category: 'Category Analytics Report'
 };
 const reportTitlesEmoji = {
-    sales: '📊 Monthly Sales Report',
-    revenue: '💰 Revenue Report',
-    product: '📦 Product Performance Report',
-    profit: '📉 Profit / Loss Report',
-    growth: '📅 Monthly Growth Report',
-    category: '🗂️ Category Analytics Report'
+    sales: '<i class="bx bx-bar-chart-alt-2"></i> Monthly Sales Report',
+    revenue: '<i class="bx bx-money"></i> Revenue Report',
+    product: '<i class="bx bx-package"></i> Product Performance Report',
+    profit: '<i class="bx bx-trending-down"></i> Profit / Loss Report',
+    growth: '<i class="bx bx-calendar"></i> Monthly Growth Report',
+    category: '<i class="bx bx-category"></i> Category Analytics Report'
 };
 
 let currentReportType = 'sales';
@@ -493,7 +493,7 @@ function showReport(type) {
     currentReportType = type;
     document.getElementById('report-preview-title').textContent = reportTitlesEmoji[type] || 'Report';
     document.getElementById('report-preview').scrollIntoView({behavior:'smooth'});
-    showToast('📊 Report preview updated!');
+    showToast('<i class="bx bx-bar-chart-alt-2"></i> Report preview updated!');
 }
 
 // ======== PER-TYPE PDF DATA (PHP -> JS) ========

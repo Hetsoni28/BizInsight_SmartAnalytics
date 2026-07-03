@@ -75,13 +75,13 @@ include 'includes/header.php';
 
 <div class="page-header">
   <div>
-    <h1>⚙️ Settings</h1>
+    <h1><i class='bx bx-cog'></i> Settings</h1>
     <p>Manage your account, business, and dashboard preferences.</p>
   </div>
 </div>
 
-<?php if($success): ?><div class="alert alert-success">✅ <?= e($success) ?></div><?php endif; ?>
-<?php if($error):   ?><div class="alert alert-danger">⚠️ <?= e($error) ?></div><?php endif; ?>
+<?php if($success): ?><div class="alert alert-success"><i class='bx bx-check-circle'></i> <?= e($success) ?></div><?php endif; ?>
+<?php if($error):   ?><div class="alert alert-danger"><i class='bx bx-error-circle'></i> <?= e($error) ?></div><?php endif; ?>
 
 <div class="settings-grid">
 
@@ -93,11 +93,11 @@ include 'includes/header.php';
       <div style="font-size:12px;color:var(--text-muted)"><?= e($profile['email']) ?></div>
     </div>
     <div class="settings-nav-links">
-      <a href="?tab=profile" class="settings-link <?= $active_tab==='profile'?'active':'' ?>">👤 Profile</a>
-      <a href="?tab=business" class="settings-link <?= $active_tab==='business'?'active':'' ?>">🏢 Business</a>
-      <a href="?tab=security" class="settings-link <?= $active_tab==='security'?'active':'' ?>">🔒 Security</a>
-      <a href="?tab=notifications" class="settings-link <?= $active_tab==='notifications'?'active':'' ?>">🔔 Notifications</a>
-      <a href="?tab=preferences" class="settings-link <?= $active_tab==='preferences'?'active':'' ?>">🎨 Preferences</a>
+      <a href="?tab=profile" class="settings-link <?= $active_tab==='profile'?'active':'' ?>"><i class='bx bx-user'></i> Profile</a>
+      <a href="?tab=business" class="settings-link <?= $active_tab==='business'?'active':'' ?>"><i class='bx bx-buildings'></i> Business</a>
+      <a href="?tab=security" class="settings-link <?= $active_tab==='security'?'active':'' ?>"><i class='bx bx-lock-alt'></i> Security</a>
+      <a href="?tab=notifications" class="settings-link <?= $active_tab==='notifications'?'active':'' ?>"><i class='bx bx-bell'></i> Notifications</a>
+      <a href="?tab=preferences" class="settings-link <?= $active_tab==='preferences'?'active':'' ?>"><i class='bx bx-palette'></i> Preferences</a>
     </div>
   </div>
 
@@ -187,7 +187,7 @@ include 'includes/header.php';
         </div>
         <?php endforeach; ?>
       </div>
-      <button class="btn btn-primary" style="margin-top:20px" onclick="showToast('🔔 Notification preferences saved!')">Save Preferences</button>
+      <button class="btn btn-primary" style="margin-top:20px" onclick="showToast('<i class="bx bx-bell"></i> Notification preferences saved!')">Save Preferences</button>
     </div>
 
     <!-- PREFERENCES TAB -->
@@ -202,7 +202,7 @@ include 'includes/header.php';
         <div class="form-group"><label>Records Per Page</label><select class="input-field"><option>10</option><option>25</option><option>50</option><option>100</option></select></div>
         <div class="form-group"><label>Date Format</label><select class="input-field"><option>DD/MM/YYYY</option><option>MM/DD/YYYY</option><option>YYYY-MM-DD</option></select></div>
       </div>
-      <button class="btn btn-primary" onclick="showToast('⚙️ Preferences saved!')">Save Preferences</button>
+      <button class="btn btn-primary" onclick="showToast('<i class="bx bx-cog"></i> Preferences saved!')">Save Preferences</button>
     </div>
     <?php endif; ?>
 

@@ -56,7 +56,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['csvfile'])) {
                 $log->bind_param("isi", $uid, $file['name'], $imported_count);
                 $log->execute();
 
-                $success = "✅ File uploaded successfully! $imported_count records imported into your dashboard.";
+                $success = "<i class='bx bx-check-circle'></i> File uploaded successfully! $imported_count records imported into your dashboard.";
             }
         } else {
             $error = 'Failed to save the uploaded file. Please check folder permissions.';
@@ -76,13 +76,13 @@ include 'includes/header.php';
 
 <div class="page-header">
   <div>
-    <h1>📂 Upload Sales Data</h1>
+    <h1><i class='bx bx-folder-open'></i> Upload Sales Data</h1>
     <p>Upload your CSV or Excel files to automatically populate your analytics dashboard.</p>
   </div>
 </div>
 
 <?php if($success): ?><div class="alert alert-success"><?= e($success) ?></div><?php endif; ?>
-<?php if($error):   ?><div class="alert alert-danger">⚠️ <?= e($error) ?></div><?php endif; ?>
+<?php if($error):   ?><div class="alert alert-danger"><i class='bx bx-error-circle'></i> <?= e($error) ?></div><?php endif; ?>
 
 <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:28px">
 
@@ -91,7 +91,7 @@ include 'includes/header.php';
     <div class="card-title" style="margin-bottom:20px">Upload CSV File</div>
     <form method="POST" enctype="multipart/form-data" id="uploadForm">
       <div class="upload-zone" id="dropZone" onclick="document.getElementById('csvfile').click()">
-        <div class="upload-icon">📁</div>
+        <div class="upload-icon"><i class='bx bx-folder'></i></div>
         <h3>Drop your CSV file here</h3>
         <p>or click to browse your computer</p>
         <p style="margin-top:8px;font-size:12px;color:#94a3b8">Supported: .csv files up to 5MB</p>
@@ -99,15 +99,15 @@ include 'includes/header.php';
       </div>
       <input type="file" name="csvfile" id="csvfile" accept=".csv,.txt" style="display:none" onchange="handleFileSelect(this)">
       <div style="margin-top:16px;display:flex;gap:12px">
-        <button type="submit" class="btn btn-primary" id="uploadBtn" disabled>📤 Upload & Import</button>
-        <a href="uploads/sample_data.csv" download class="btn btn-outline">📥 Download Sample CSV</a>
+        <button type="submit" class="btn btn-primary" id="uploadBtn" disabled><i class='bx bx-upload'></i> Upload & Import</button>
+        <a href="uploads/sample_data.csv" download class="btn btn-outline"><i class='bx bx-download'></i> Download Sample CSV</a>
       </div>
     </form>
   </div>
 
   <!-- FORMAT GUIDE -->
   <div class="card">
-    <div class="card-title" style="margin-bottom:20px">📋 Required CSV Format</div>
+    <div class="card-title" style="margin-bottom:20px"><i class='bx bx-clipboard'></i> Required CSV Format</div>
     <div class="code-block">
       product_name, category, sales_amount, profit, quantity, month_name<br>
       Laptop Pro X1, Electronics, 50000, 8000, 5, January<br>
@@ -134,7 +134,7 @@ include 'includes/header.php';
 
 <!-- WHAT HAPPENS NEXT -->
 <div class="card" style="margin-bottom:28px">
-  <div class="card-title" style="margin-bottom:20px">✅ What Happens After Upload</div>
+  <div class="card-title" style="margin-bottom:20px"><i class='bx bx-check-circle'></i> What Happens After Upload</div>
   <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:20px">
     <div style="text-align:center;padding:20px">
       <div style="width:48px;height:48px;background:var(--blue);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;color:#fff;margin:0 auto 12px">1</div>
@@ -163,17 +163,17 @@ include 'includes/header.php';
 <div class="card">
   <div class="card-header"><div><div class="card-title">Recent Upload History</div></div></div>
   <?php if(empty($uploads)): ?>
-    <div class="empty-state"><div style="font-size:48px;margin-bottom:12px">📂</div><p>No uploads yet. Upload your first CSV file above.</p></div>
+    <div class="empty-state"><div style="font-size:48px;margin-bottom:12px"><i class='bx bx-folder-open'></i></div><p>No uploads yet. Upload your first CSV file above.</p></div>
   <?php else: ?>
   <table class="data-table">
     <thead><tr><th>File Name</th><th>Records Imported</th><th>Uploaded On</th><th>Status</th></tr></thead>
     <tbody>
       <?php foreach($uploads as $u): ?>
       <tr>
-        <td>📄 <strong><?= e($u['file_name']) ?></strong></td>
+        <td><i class='bx bx-file-blank'></i> <strong><?= e($u['file_name']) ?></strong></td>
         <td><?= number_format($u['records_imported']) ?> records</td>
         <td><?= date('d M Y, h:i A', strtotime($u['uploaded_at'])) ?></td>
-        <td><span class="badge badge-success">✅ Imported</span></td>
+        <td><span class="badge badge-success"><i class='bx bx-check-circle'></i> Imported</span></td>
       </tr>
       <?php endforeach; ?>
     </tbody>
@@ -185,7 +185,7 @@ include 'includes/header.php';
 function handleFileSelect(input) {
     const file = input.files[0];
     if(file) {
-        document.getElementById('fileName').textContent = '📄 ' + file.name;
+        document.getElementById('fileName').textContent = '<i class="bx bx-file-blank"></i> ' + file.name;
         document.getElementById('fileName').style.display = 'block';
         document.getElementById('uploadBtn').disabled = false;
         document.querySelector('.upload-zone h3').textContent = 'File selected!';

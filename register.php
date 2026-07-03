@@ -81,6 +81,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Create Account — BizInsight Analytics</title>
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <meta name="description" content="Register your business on BizInsight to start analyzing your sales data.">
     
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -277,14 +278,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </div>
 
         <div class="glass-features">
-            <div class="feature-item"><div class="feature-icon-box">💳</div><span>Free to start — No credit card</span></div>
-            <div class="feature-item"><div class="feature-icon-box">📈</div><span>Auto-generate dynamic charts</span></div>
-            <div class="feature-item"><div class="feature-icon-box">📑</div><span>Export professional PDF reports</span></div>
+            <div class="feature-item"><div class="feature-icon-box"><i class='bx bx-credit-card'></i></div><span>Free to start — No credit card</span></div>
+            <div class="feature-item"><div class="feature-icon-box"><i class='bx bx-line-chart'></i></div><span>Auto-generate dynamic charts</span></div>
+            <div class="feature-item"><div class="feature-icon-box"><i class='bx bxs-report'></i></div><span>Export professional PDF reports</span></div>
         </div>
     </div>
 
     <div class="auth-right">
-        <a href="index.php" class="back-btn">Exit ✕</a>
+        <a href="index.php" class="back-btn">Exit <i class='bx bx-x'></i></a>
         
         <div class="form-header stagger-1">
             <h3>Create Account</h3>
@@ -292,10 +293,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </div>
 
         <?php if(!empty($error)): ?>
-            <div class="alert alert-error stagger-1">⚠️ <span><?= htmlspecialchars($error) ?></span></div>
+            <div class="alert alert-error stagger-1"><i class='bx bx-error-circle'></i> <span><?= htmlspecialchars($error) ?></span></div>
         <?php endif; ?>
         <?php if(!empty($success)): ?>
-            <div class="alert alert-success stagger-1">✅ <span><?= htmlspecialchars($success) ?></span></div>
+            <div class="alert alert-success stagger-1"><i class='bx bx-check-circle'></i> <span><?= htmlspecialchars($success) ?></span></div>
         <?php endif; ?>
 
         <form method="POST" action="register.php" onsubmit="handleFormSubmit(event)">
@@ -322,7 +323,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <label for="password">Create Password <span class="req">*</span></label>
                 <div class="input-wrapper">
                     <input type="password" id="password" name="password" class="input-field" placeholder="Minimum 8 characters" required minlength="8">
-                    <span class="toggle-pwd" onclick="togglePassword()" title="Show Password">👁️</span>
+                    <span class="toggle-pwd" onclick="togglePassword()" title="Show Password"><i class='bx bx-show'></i></span>
                 </div>
                 <div class="pwd-strength">
                     <div class="pwd-bars">
@@ -372,10 +373,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         const pwdToggle = document.querySelector('.toggle-pwd');
         if (pwdInput.type === 'password') {
             pwdInput.type = 'text';
-            pwdToggle.textContent = '🙈';
+            pwdToggle.textContent = '<i class="bx bx-hide"></i>';
         } else {
             pwdInput.type = 'password';
-            pwdToggle.textContent = '👁️';
+            pwdToggle.textContent = '<i class="bx bx-show"></i>';
         }
     }
 

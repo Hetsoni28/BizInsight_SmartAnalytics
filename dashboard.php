@@ -83,7 +83,7 @@ include 'includes/header.php';
 
 <div class="page-header">
   <div>
-    <h1>📊 Business Dashboard</h1>
+    <h1><i class='bx bx-bar-chart-alt-2'></i> Business Dashboard</h1>
     <p>Welcome back, <strong><?= e($user['name']) ?></strong>! Here's your business performance overview for <?= e($biz['business_name'] ?? 'your business') ?>.</p>
   </div>
   <div style="display:flex;gap:12px;align-items:center">
@@ -98,7 +98,7 @@ include 'includes/header.php';
       {label:'Total Profit', value:'Rs.<?= number_format($total_profit) ?>'},
       {label:'Units Sold', value:'<?= number_format($total_orders) ?>'},
       {label:'Profit Margin', value:'<?= $profit_margin ?>%'}
-    ])">📄 PDF</button>
+    ])"><i class='bx bx-file-blank'></i> PDF</button>
     <a href="upload.php" class="btn btn-primary">+ Upload Data</a>
   </div>
 </div>
@@ -106,19 +106,19 @@ include 'includes/header.php';
 <!-- KPI CARDS -->
 <div class="kpi-grid">
   <div class="kpi-card blue">
-    <div class="kpi-icon">💰</div>
+    <div class="kpi-icon"><i class='bx bx-money'></i></div>
     <div class="kpi-label">Total Revenue</div>
     <div class="kpi-value">₹<?= number_format($total_revenue) ?></div>
     <div class="kpi-badge up">▲ Business Revenue</div>
   </div>
   <div class="kpi-card green">
-    <div class="kpi-icon">📈</div>
+    <div class="kpi-icon"><i class='bx bx-line-chart'></i></div>
     <div class="kpi-label">Total Profit</div>
     <div class="kpi-value">₹<?= number_format($total_profit) ?></div>
     <div class="kpi-badge up">▲ Net Profit</div>
   </div>
   <div class="kpi-card amber">
-    <div class="kpi-icon">🛒</div>
+    <div class="kpi-icon"><i class='bx bx-cart'></i></div>
     <div class="kpi-label">Total Orders</div>
     <div class="kpi-value"><?= number_format($total_orders) ?></div>
     <div class="kpi-badge up">▲ Units Sold</div>
@@ -169,7 +169,7 @@ include 'includes/header.php';
     </div>
     <?php if(empty($top_products)): ?>
       <div class="empty-state">
-        <div style="font-size:48px;margin-bottom:12px">📦</div>
+        <div style="font-size:48px;margin-bottom:12px"><i class='bx bx-package'></i></div>
         <p>No sales data yet. <a href="upload.php">Upload your first file</a></p>
       </div>
     <?php else: ?>
@@ -189,24 +189,24 @@ include 'includes/header.php';
 
   <div class="card">
     <div class="card-header">
-      <div><div class="card-title">AI Insights 🤖</div><div class="card-sub">Automated analysis</div></div>
+      <div><div class="card-title">AI Insights <i class='bx bx-bot'></i></div><div class="card-sub">Automated analysis</div></div>
     </div>
     <?php
       $insights = [];
       if($total_revenue > 0) {
-        $insights[] = ['icon'=>'📈','title'=>'Revenue Active','body'=>'Your total revenue is ₹'.number_format($total_revenue).'. Keep uploading monthly data to track growth trends.'];
+        $insights[] = ['icon'=>'<i class="bx bx-line-chart"></i>','title'=>'Revenue Active','body'=>'Your total revenue is ₹'.number_format($total_revenue).'. Keep uploading monthly data to track growth trends.'];
       }
       if($profit_margin >= 20) {
-        $insights[] = ['icon'=>'✅','title'=>'Healthy Margin','body'=>'Profit margin of '.$profit_margin.'% is above the 20% benchmark — great job!'];
+        $insights[] = ['icon'=>'<i class="bx bx-check-circle"></i>','title'=>'Healthy Margin','body'=>'Profit margin of '.$profit_margin.'% is above the 20% benchmark — great job!'];
       } elseif($profit_margin > 0) {
-        $insights[] = ['icon'=>'⚠️','title'=>'Improve Margin','body'=>'Profit margin of '.$profit_margin.'% is below 20%. Review expenses and pricing strategy.'];
+        $insights[] = ['icon'=>'<i class="bx bx-error-circle"></i>','title'=>'Improve Margin','body'=>'Profit margin of '.$profit_margin.'% is below 20%. Review expenses and pricing strategy.'];
       }
       if(!empty($top_products)) {
         $top = $top_products[0];
         $insights[] = ['icon'=>'🏆','title'=>'Top Performer','body'=>e($top['product_name']).' is your top product generating ₹'.number_format($top['total_sales']).' in sales.'];
       }
       if(empty($insights)) {
-        $insights[] = ['icon'=>'💡','title'=>'Get Started','body'=>'Upload your sales data using CSV or Excel to see AI-powered business insights here.'];
+        $insights[] = ['icon'=>'<i class="bx bx-bulb"></i>','title'=>'Get Started','body'=>'Upload your sales data using CSV or Excel to see AI-powered business insights here.'];
       }
     ?>
     <div style="display:flex;flex-direction:column;gap:12px">
@@ -231,7 +231,7 @@ include 'includes/header.php';
   </div>
   <?php if(empty($recent_sales)): ?>
     <div class="empty-state">
-      <div style="font-size:48px;margin-bottom:12px">🛒</div>
+      <div style="font-size:48px;margin-bottom:12px"><i class='bx bx-cart'></i></div>
       <p>No sales records yet. <a href="sales.php">Add your first sale</a> or <a href="upload.php">upload a CSV file</a>.</p>
     </div>
   <?php else: ?>

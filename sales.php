@@ -111,19 +111,19 @@ include 'includes/header.php';
 
 <div class="page-header">
   <div>
-    <h1>🛒 Sales Data Management</h1>
+    <h1><i class='bx bx-cart'></i> Sales Data Management</h1>
     <p>Add, edit, search, and manage all your sales records.</p>
   </div>
   <button class="btn btn-primary" onclick="openModal('addModal')">+ Add New Sale</button>
 </div>
 
-<?php if($success): ?><div class="alert alert-success">✅ <?= e($success) ?></div><?php endif; ?>
-<?php if($error):   ?><div class="alert alert-danger">⚠️ <?= e($error) ?></div><?php endif; ?>
+<?php if($success): ?><div class="alert alert-success"><i class='bx bx-check-circle'></i> <?= e($success) ?></div><?php endif; ?>
+<?php if($error):   ?><div class="alert alert-danger"><i class='bx bx-error-circle'></i> <?= e($error) ?></div><?php endif; ?>
 
 <!-- FILTER BAR -->
 <form method="GET" class="filter-bar">
   <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap">
-    <input type="text" name="search" class="input-field" style="width:220px" placeholder="🔍 Search products..." value="<?= e($search) ?>">
+    <input type="text" name="search" class="input-field" style="width:220px" placeholder="Search products..." value="<?= e($search) ?>">
     <select name="category" class="input-field" style="width:160px">
       <option value="">All Categories</option>
       <?php foreach($categories as $c): ?>
@@ -139,7 +139,7 @@ include 'includes/header.php';
     <button type="submit" class="btn btn-primary">Search</button>
     <a href="sales.php" class="btn btn-outline">Clear</a>
     <a href="reports.php?type=sales_csv" class="btn btn-outline">Export CSV</a>
-    <button class="btn btn-outline" onclick="generatePagePDF('Sales Data Report')">📄 PDF</button>
+    <button class="btn btn-outline" onclick="generatePagePDF('Sales Data Report')"><i class='bx bx-file-blank'></i> PDF</button>
   </div>
 </form>
 
@@ -149,7 +149,7 @@ include 'includes/header.php';
   </div>
   <?php if(empty($sales_records)): ?>
     <div class="empty-state">
-      <div style="font-size:48px;margin-bottom:12px">🛒</div>
+      <div style="font-size:48px;margin-bottom:12px"><i class='bx bx-cart'></i></div>
       <p>No sales records found. <a href="#" onclick="openModal('addModal')">Add your first sale</a> or <a href="upload.php">upload a CSV file</a>.</p>
     </div>
   <?php else: ?>
@@ -207,8 +207,8 @@ include 'includes/header.php';
 <!-- ADD MODAL -->
 <div class="modal-overlay" id="addModal">
   <div class="modal-box">
-    <button class="modal-close" onclick="closeModal('addModal')">✕</button>
-    <h3>➕ Add New Sale Record</h3>
+    <button class="modal-close" onclick="closeModal('addModal')"><i class='bx bx-x'></i></button>
+    <h3><i class='bx bx-plus-circle'></i> Add New Sale Record</h3>
     <form method="POST">
       <input type="hidden" name="action" value="add">
       <div class="form-row-grid">
@@ -244,8 +244,8 @@ include 'includes/header.php';
 <!-- EDIT MODAL -->
 <div class="modal-overlay" id="editModal">
   <div class="modal-box">
-    <button class="modal-close" onclick="closeModal('editModal')">✕</button>
-    <h3>✏️ Edit Sale Record</h3>
+    <button class="modal-close" onclick="closeModal('editModal')"><i class='bx bx-x'></i></button>
+    <h3><i class='bx bx-pencil'></i> Edit Sale Record</h3>
     <form method="POST">
       <input type="hidden" name="action" value="edit">
       <input type="hidden" name="edit_id" id="edit_id">

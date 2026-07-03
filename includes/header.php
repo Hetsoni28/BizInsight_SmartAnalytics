@@ -8,6 +8,7 @@ $page_title = $page_title ?? 'BizInsight';
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title><?= e($page_title) ?> — BizInsight</title>
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
   <link rel="stylesheet" href="assets/css/style.css">
   <link rel="stylesheet" href="assets/css/dashboard.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -33,7 +34,7 @@ $page_title = $page_title ?? 'BizInsight';
   </div>
   <div class="topbar-right">
     <div class="topbar-search">
-      <input type="text" placeholder="🔍 Search...">
+      <input type="text" placeholder="Search...">
     </div>
     <div class="topbar-user">
       <?php

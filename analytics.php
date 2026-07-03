@@ -43,7 +43,7 @@ include 'includes/header.php';
 
 <div class="page-header">
   <div>
-    <h1>📈 Business Analytics</h1>
+    <h1><i class='bx bx-line-chart'></i> Business Analytics</h1>
     <p>Deep-dive into your revenue, profit, and growth metrics.</p>
   </div>
   <div style="display:flex;gap:12px">
@@ -55,17 +55,17 @@ include 'includes/header.php';
       {label:'Profit Margin', value:'<?= $profit_margin ?>%'},
       {label:'Avg Order Value', value:'Rs.<?= number_format($avg_order) ?>'},
       {label:'Units Sold', value:'<?= number_format($total_orders) ?>'}
-    ])">📄 PDF</button>
+    ])"><i class='bx bx-file-blank'></i> PDF</button>
     <a href="reports.php" class="btn btn-primary">Generate Report</a>
   </div>
 </div>
 
 <!-- KPI ROW -->
 <div class="kpi-grid">
-  <div class="kpi-card blue"><div class="kpi-icon">💰</div><div class="kpi-label">Total Revenue</div><div class="kpi-value">₹<?= number_format($total_revenue) ?></div><div class="kpi-badge up">▲ All time</div></div>
-  <div class="kpi-card green"><div class="kpi-icon">📊</div><div class="kpi-label">Profit Margin</div><div class="kpi-value"><?= $profit_margin ?>%</div><div class="kpi-badge <?= $profit_margin >= 20 ? 'up':'down' ?>"><?= $profit_margin >= 20 ? '▲ Healthy':'▼ Low' ?></div></div>
+  <div class="kpi-card blue"><div class="kpi-icon"><i class='bx bx-money'></i></div><div class="kpi-label">Total Revenue</div><div class="kpi-value">₹<?= number_format($total_revenue) ?></div><div class="kpi-badge up">▲ All time</div></div>
+  <div class="kpi-card green"><div class="kpi-icon"><i class='bx bx-bar-chart-alt-2'></i></div><div class="kpi-label">Profit Margin</div><div class="kpi-value"><?= $profit_margin ?>%</div><div class="kpi-badge <?= $profit_margin >= 20 ? 'up':'down' ?>"><?= $profit_margin >= 20 ? '▲ Healthy':'▼ Low' ?></div></div>
   <div class="kpi-card amber"><div class="kpi-icon">🎯</div><div class="kpi-label">Avg Order Value</div><div class="kpi-value">₹<?= number_format($avg_order) ?></div><div class="kpi-badge up">▲ Per unit</div></div>
-  <div class="kpi-card purple"><div class="kpi-icon">🛒</div><div class="kpi-label">Total Units Sold</div><div class="kpi-value"><?= number_format($total_orders) ?></div><div class="kpi-badge up">▲ Units</div></div>
+  <div class="kpi-card purple"><div class="kpi-icon"><i class='bx bx-cart'></i></div><div class="kpi-label">Total Units Sold</div><div class="kpi-value"><?= number_format($total_orders) ?></div><div class="kpi-badge up">▲ Units</div></div>
 </div>
 
 <!-- REVENUE vs PROFIT CHART -->
@@ -100,7 +100,7 @@ include 'includes/header.php';
 <div class="card">
   <div class="card-header"><div><div class="card-title">Product Performance Breakdown</div><div class="card-sub">All products by revenue & profit</div></div></div>
   <?php if(empty($top_products)): ?>
-    <div class="empty-state"><div style="font-size:48px;margin-bottom:12px">📦</div><p>No data. <a href="upload.php">Upload sales data</a> to see analytics.</p></div>
+    <div class="empty-state"><div style="font-size:48px;margin-bottom:12px"><i class='bx bx-package'></i></div><p>No data. <a href="upload.php">Upload sales data</a> to see analytics.</p></div>
   <?php else: ?>
   <table class="data-table">
     <thead><tr><th>Rank</th><th>Product</th><th>Total Sales</th><th>Total Profit</th><th>Margin</th><th>Performance</th></tr></thead>
@@ -127,10 +127,10 @@ include 'includes/header.php';
 
 <!-- AI INSIGHTS -->
 <div class="card" style="margin-top:24px">
-  <div class="card-header"><div><div class="card-title">AI Business Insights 🤖</div><div class="card-sub">Automated analysis from your data</div></div></div>
+  <div class="card-header"><div><div class="card-title">AI Business Insights <i class='bx bx-bot'></i></div><div class="card-sub">Automated analysis from your data</div></div></div>
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
     <div class="insight-card-lg">
-      <div style="font-size:24px;margin-bottom:10px">📈</div>
+      <div style="font-size:24px;margin-bottom:10px"><i class='bx bx-line-chart'></i></div>
       <div style="font-weight:700;margin-bottom:6px;font-size:15px">Revenue Overview</div>
       <div style="font-size:13px;color:var(--text-muted)">Total revenue stands at <strong>₹<?= number_format($total_revenue) ?></strong> with a profit margin of <strong><?= $profit_margin ?>%</strong>. Keep uploading monthly data to track growth trends over time.</div>
     </div>
@@ -146,7 +146,7 @@ include 'includes/header.php';
       </div>
     </div>
     <div class="insight-card-lg">
-      <div style="font-size:24px;margin-bottom:10px">💡</div>
+      <div style="font-size:24px;margin-bottom:10px"><i class='bx bx-bulb'></i></div>
       <div style="font-weight:700;margin-bottom:6px;font-size:15px">Profit Strategy</div>
       <div style="font-size:13px;color:var(--text-muted)">
         <?php if($profit_margin >= 20): ?>
@@ -159,7 +159,7 @@ include 'includes/header.php';
       </div>
     </div>
     <div class="insight-card-lg">
-      <div style="font-size:24px;margin-bottom:10px">📅</div>
+      <div style="font-size:24px;margin-bottom:10px"><i class='bx bx-calendar'></i></div>
       <div style="font-weight:700;margin-bottom:6px;font-size:15px">Monthly Tip</div>
       <div style="font-size:13px;color:var(--text-muted)">Upload sales data every month to build a complete year-over-year comparison. This helps identify seasonal patterns and plan inventory better.</div>
     </div>
